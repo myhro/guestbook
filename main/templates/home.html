@@ -1,0 +1,31 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Guestbook</title>
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap.min.css" %}"/>
+</head>
+<body>
+<div class="container">
+    <h1>Guestbook</h1>
+<pre>
+Hostname: {{ hostname }}
+IP: {{ ip }}
+</pre>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </p>
+    </form>
+    {% for p in people %}
+        <p>
+            <img src="{{ p.avatar.url }}" width="150" height="150"/><br />
+            <strong>{{ p.name }}</strong>
+        </p>
+    {% endfor %}
+</div>
+</body>
+</html>
